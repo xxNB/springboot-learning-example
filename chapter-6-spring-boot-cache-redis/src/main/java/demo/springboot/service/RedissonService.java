@@ -30,7 +30,7 @@ public class RedissonService {
     }
 
     /**
-    * 获得2锁
+    * 获得锁
     * */
 
     public RLock getRLock(String  objectName){
@@ -59,7 +59,7 @@ public class RedissonService {
     }
 
     /**
-     * 获取技术锁
+     * 获取计数锁
      *
      *
      * ***/
