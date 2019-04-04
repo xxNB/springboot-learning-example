@@ -29,6 +29,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- redisson -->
+        <dependency>
+                 <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                 <version>3.5.7</version>
+             </dependency>
 
         <!-- 模板引擎 Thymeleaf 依赖 -->
         <dependency>
@@ -67,6 +73,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.6</version>
+        </dependency>
+
 
     </dependencies>
 
