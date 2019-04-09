@@ -1,3 +1,4 @@
+import com.mongodb.*;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -16,6 +17,9 @@ public class crawlDouBan {
 
     private static String url = "https://movie.douban.com/subject/30163509/comments?start=";
     private static OkHttpClient client = new OkHttpClient();
+//    private static Content content = new Content();
+    private static DBCollection mongo = new MongoClient("127.0.0.1", 27017).getDB("douyin").getCollection("douban");
+
 
     private static ArrayList<String>  exportUrl(){
         ArrayList<String> urls = new ArrayList<>();
@@ -27,7 +31,7 @@ public class crawlDouBan {
         return urls;
     }
 
-    public static String get(String url) {
+    private static String get(String url) {
         String html = "";
         try{
         Request request = new Request.Builder().url(url).get().build();
@@ -41,13 +45,18 @@ public class crawlDouBan {
         return html;
     }
 
-    public static void parseHtml(String html){
+    private static void parseHtml(String html){
 //        Jsoup jsoup = new Jsoupoup();
         Document doc = Jsoup.parse(html);
         Elements comment = doc.select("#comments > div > div.comment > p > span");
         Elements autor = doc.select("#comments > div> div.comment > h3 > span.comment-info > a");
         for (int i=0; i< comment.size(); ++i){
-            System.out.println("autor: "+autor.eachText().toArray()[i]+"\n"+"comment: "+comment.eachText().toArray()[i]);
+            DBObject sss = new BasicDBObject();
+            sss.put("autor", autor.eachText().toArray()[i]);
+            sss.put("comment", comment.eachText().toArray()[i]);
+            mongo.save(sss);
+//            System.out.println("autor: "+autor.eachText().toArray()[i]+"\n"+"comment: "+comment.eachText().toArray()[i]);
+
         }
     }
 
